@@ -21,39 +21,33 @@ export const school = {
     7: new Student('Ivan', [76, 89, 78, 98, 98, 99, 89, 96]),
   },
 
-  get aGradeStudents() {
-    for (let key in this.students) {
-      if (this.students[key].averageGrade >= 80) {
-        return this.students[key].name
+  filterNames(maxNum, minNum, students) {
+      let names = [];
+      for (let key in students) {
+        const {
+          averageGrade,
+          name
+        } = this.students[key];
+        if (averageGrade <= maxNum && averageGrade >= minNum) {
+          names.push(name);
+        }
       }
-    }
+      return names.join(', ');
+  },
+
+  get aGradeStudents() {
+    return this.filterNames(100, 90, this.students);
   },
 
   get bGradeStudents() {
-    for (let key in this.students) {
-      if (this.students[key].averageGrade >= 75) {
-        return this.students[key].name
-      }
-    }
+    return this.filterNames(89, 75, this.students);
   },
 
   get cGradeStudents() {
-    let names = [];
-    for (let key in this.students) {
-      if (this.students[key].averageGrade >= 60 && this.students[key].averageGrade < 75) {
-        names.push(this.students[key].name)
-      }
-    }
-    return names.join(', ')
+    return this.filterNames(74, 60, this.students);
   },
 
   get dGradeStudents() {
-    let names = [];
-    for (let key in this.students) {
-      if (this.students[key].averageGrade < 60) {
-        names.push(this.students[key].name)
-      }
-    }
-    return names.join(', ')
-  }
+    return this.filterNames(59, 0, this.students);
+  },
 };
